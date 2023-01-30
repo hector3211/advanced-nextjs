@@ -10,3 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model User {
+  id          Int     @id @default(autoincrement())
+  name        String
+  likedMovies Movie[]
+}
+
+model Movie {
+  id      Int    @id @default(autoincrement())
+  title   String
+  rating  Int
+  likedBy User[]
+}
+
+
