@@ -5,12 +5,11 @@ import { authOptions } from "../pages/api/auth/[...nextauth]";
 
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
-  console.log(session);
   return (
     <div className="navbar bg-zinc-600 fixed z-50 top-0 bg-opacity-60 backdrop-blur-md">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-3xl text-orange-500 font-bold">
-          RustFlix
+          NextFlix
         </a>
       </div>
       <div className="flex-none text-xl">
