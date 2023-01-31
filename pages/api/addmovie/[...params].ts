@@ -6,12 +6,16 @@ type Message = {
   success?: string;
 };
 
-export default async function fakeData(
+export default async function createMovie(
   req: NextApiRequest,
   res: NextApiResponse<Message>
 ) {
-  const title: string = "matrix reloaded";
-  const rating: number = 10;
+  const { params } = req.query;
+  const title = params?.at(0);
+  const rating = Number(params?.at(1));
+  if (!title || !rating) {
+    return res.status(500).send({ message: "No Movie data was provided" });
+  }
   try {
     await prisma.movie.create({
       data: {
@@ -21,7 +25,7 @@ export default async function fakeData(
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Error creating movie" });
+    return res.status(500).send({ message: "Error creating movie" });
   }
-  res.status(200).json({ success: "Success" });
+  return res.status(200).send({ success: "Success" });
 }

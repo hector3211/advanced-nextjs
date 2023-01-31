@@ -1,4 +1,6 @@
 import "./globals.css";
+import Nav from "./nav";
+import ProviderWrapper from "./session";
 
 export default function RootLayout({
   children,
@@ -13,7 +15,12 @@ export default function RootLayout({
       */}
       <head />
       <body className="min-h-screen max-w-full bg-zinc-800 text-gray-200">
-        {children}
+        <ProviderWrapper>
+          {/* 
+// @ts-ignore */}
+          <Nav />
+          {children}
+        </ProviderWrapper>
       </body>
     </html>
   );
