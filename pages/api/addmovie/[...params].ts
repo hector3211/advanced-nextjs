@@ -3,7 +3,6 @@ import prisma from "lib/prisma";
 
 type Message = {
   message?: string;
-  success?: string;
 };
 
 export default async function createMovie(
@@ -27,5 +26,5 @@ export default async function createMovie(
     console.error(err);
     return res.status(500).send({ message: "Error creating movie" });
   }
-  return res.status(200).send({ success: "Success" });
+  return res.status(200).end();
 }

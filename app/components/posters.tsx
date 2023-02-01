@@ -1,24 +1,21 @@
-"use client";
-import { useEffect, useState } from "react";
 import { Poster } from "types";
+import DeleteButton from "./deleteButton";
 
 type PosterProps = {
+  id: number;
   title: string;
 };
 
-export default function PosterImgs({ title }: PosterProps) {
-  const [poster, setPoster] = useState<Poster>();
+async function fetchPoster(title: string) {
+  const res = await fetch(
+    `http://www.omdbapi.com/?t=${title}&apikey=${process.env.NEXT_PUBLIC_POSTER_API_KEY}`
+  );
+  const data: Poster = await res.json();
+  return data;
+}
 
-  useEffect(() => {
-    async function fetchPosters() {
-      const res = await fetch(
-        `http://www.omdbapi.com/?t=${title}&apikey=${process.env.NEXT_PUBLIC_POSTER_API_KEY}`
-      );
-      const data: Poster = await res.json();
-      setPoster(data);
-    }
-    fetchPosters().catch(console.error);
-  }, [title]);
+export default async function PosterImgs({ id, title }: PosterProps) {
+  const poster = await fetchPoster(title);
   if (!poster) {
     return <div>Loading...</div>;
   }
@@ -29,7 +26,11 @@ export default function PosterImgs({ title }: PosterProps) {
         alt={`poster of ${poster.Title}`}
         className="h-full object-fill border-2 border-teal-500 rounded-md"
       />
-      <p>{poster.imdbRating}</p>
+      <div className="flex justify-between pt-2">
+        <p>⭐{poster.imdbRating}</p>
+        <DeleteButton id={id} />
+        <button className="btn btn-sm btn-accent">❤</button>
+      </div>
     </div>
   );
 }
