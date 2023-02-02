@@ -20,8 +20,8 @@ export default async function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href={"/about"} className="text-white">
-              About
+            <Link href={"/liked"} className="text-white">
+              Liked
             </Link>
           </li>
           <li>

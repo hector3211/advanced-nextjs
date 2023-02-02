@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function TheMovieForm() {
   const [title, setTitle] = useState<string | null>(); // I hate using null
   const [rating, setRating] = useState<number | null>(); // feels wrong
+
   async function createMovie() {
     const res = await fetch(`/api/addmovie/${title}/${rating}`);
     if (res.status === 200) {
